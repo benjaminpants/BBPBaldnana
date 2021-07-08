@@ -21,6 +21,9 @@ namespace BBPBaldnana
 		public override bool Use(PlayerManager pm)
 		{
 			UnityEngine.Debug.Log("CUSTOM ITEM BABY");
+			Item bsod = GameObject.Instantiate(BaldiBananaMayham.BSODAObj.item);
+			bsod.transform.name = "Banana NPCless";
+			bsod.Use(pm);
 			return true;
 		}
 	}
