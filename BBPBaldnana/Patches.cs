@@ -27,6 +27,7 @@ namespace BBPBaldnana
             if (Input.GetKeyDown(KeyCode.F6))
             {
                 __instance.AddItem(BaldiBananaMayham.BananaObject);
+                __instance.AddItem(BaldiBananaMayham.RipeObject);
             }
             return true;
         }
@@ -39,6 +40,7 @@ namespace BBPBaldnana
         static bool Prefix(LevelGenerator __instance)
         {
             __instance.ld.items = BaldiBananaMayham.NewItems.ToArray();
+            __instance.ld.shopItems = BaldiBananaMayham.ShopItems.ToArray();
             return true;
         }
     }
@@ -64,6 +66,21 @@ namespace BBPBaldnana
                 spr.sprite = BaldiBananaMayham.BananFloorSprite;
                 spr.transform.localScale *= 2f;
                 spr.transform.position -= new Vector3(0f, 3.2f, 0f);
+                return false;
+            }
+            if (__instance.transform.name == "GB RIPE")
+            {
+                FieldInfo speed = AccessTools.Field(typeof(ITM_BSODA), "speed");
+                speed.SetValue(__instance, 0f);
+                FieldInfo time = AccessTools.Field(typeof(ITM_BSODA), "time");
+                time.SetValue(__instance, 10f); //makes the banana stay for 10 minutes, which is way longer then any BB+ game can reasonibly last, i could set this to 999999 but i'd rather have some form of auto-cleanup
+                FieldInfo enviroment = AccessTools.Field(typeof(ITM_BSODA), "ec");
+                enviroment.SetValue(__instance, Singleton<BaseGameManager>.Instance.Ec);
+                __instance.transform.position = pm.transform.position;
+                //okay now that we've simulated the base behavior with a few tweaks time to add our custom stuff
+                SpriteRenderer spr = __instance.gameObject.transform.GetComponentInChildren<SpriteRenderer>();
+                spr.sprite = BaldiBananaMayham.RipeSpraySprite;
+                spr.transform.localScale *= 2f;
                 return false;
             }
 
