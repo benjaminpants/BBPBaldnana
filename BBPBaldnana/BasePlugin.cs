@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace BBPBaldnana
 {
-    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "0.0.0.0")]
+    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "1.0.0.0")]
 
     public class BaldiBananaMayham : BaseUnityPlugin
     {
@@ -161,14 +161,14 @@ namespace BBPBaldnana
             BananaObject.item = new GameObject().AddComponent<ITM_Banan>();
             RipeObject = CreateObject("Ripe", "Ripe\nUse this rainbow Banana to spawn a hoard of rainbow colored Bananas to stop characters in their tracks!", RipeSprite32x, RipeSprite128x, Items.FidgetSpinner, 100, 100); //its a really bad idea to use these non-sense values but it could be causing issues
             RipeObject.item = new GameObject().AddComponent<ITM_RipeBanan>();
-            SplitObject = CreateObject("Banana Split", "Banana Split\nThis yummy treat will increase your stamina for the rest of the floor!", SplitSprite32x, SplitSprite128x, Items.Football, 75, 25);
+            SplitObject = CreateObject("Banana Split", "Banana Split\nThis yummy treat will increase your max stamina for the rest of the floor!\n Dying resets your max stamina.", SplitSprite32x, SplitSprite128x, Items.Football, 75, 25);
             SplitObject.item = new GameObject().AddComponent<ITM_BananSplit>();
 
             DontDestroyOnLoad(BananaObject.item);
             DontDestroyOnLoad(RipeObject.item);
             DontDestroyOnLoad(SplitObject.item);
             BSODAObj = Resources.FindObjectsOfTypeAll<ItemObject>().ToList().Find(x => x.itemType == Items.Bsoda);
-
+            
 
 
             //item drops(REMINDER BEN TO FIX THIS CODE LATER AS ITS A MESS)
