@@ -18,32 +18,7 @@ using HarmonyLib.Tools;
 
 namespace BBPBaldnana
 {
-    [HarmonyPatch(typeof(ItemManager))]
-    [HarmonyPatch("Update")]
-    class DebugSlotPatch
-    {
-        static bool Prefix(ItemManager __instance)
-        {
-            if (Input.GetKeyDown(KeyCode.F6))
-            {
-                __instance.AddItem(BaldiBananaMayham.BananaObject);
-                __instance.AddItem(BaldiBananaMayham.RipeObject);
-            }
-            return true;
-        }
-    }
 
-    [HarmonyPatch(typeof(LevelGenerator))]
-    [HarmonyPatch("StartGenerate")]
-    class MessWithLevelData
-    {
-        static bool Prefix(LevelGenerator __instance)
-        {
-            __instance.ld.items = BaldiBananaMayham.NewItems.ToArray();
-            __instance.ld.shopItems = BaldiBananaMayham.ShopItems.ToArray();
-            return true;
-        }
-    }
 
     [HarmonyPatch(typeof(ITM_BSODA))]
     [HarmonyPatch("Use")]

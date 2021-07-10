@@ -157,11 +157,11 @@ namespace BBPBaldnana
             SplitSprite128x = Sprite.Create((Texture2D)tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
 
-            BananaObject = CreateObject("Banana", "A good ol' fashioned Banana!\nYou can't go wrong with a scrumptious snack like this!\nJust make sure to clean up the peels!", BananSprite32x, BananSprite128x, Items.NanaPeel, 50);
+            BananaObject = CreateObject("Banana", "Banana\nA good ol' fashioned Banana!\nDrop it and make people slip the opposite direction they are heading!\nThis can backfire and make them head towards you!\n(This is totally intentional and not a bug)", BananSprite32x, BananSprite128x, Items.NanaPeel, 50,25);
             BananaObject.item = new GameObject().AddComponent<ITM_Banan>();
-            RipeObject = CreateObject("Ripe", "Use this rainbow Banana to spawn a hoard of rainbow colored Bananas to stop characters in their tracks!", RipeSprite32x, RipeSprite128x, Items.NanaPeel, 100);
+            RipeObject = CreateObject("Ripe", "Ripe\nUse this rainbow Banana to spawn a hoard of rainbow colored Bananas to stop characters in their tracks!", RipeSprite32x, RipeSprite128x, Items.FidgetSpinner, 100, 100); //its a really bad idea to use these non-sense values but it could be causing issues
             RipeObject.item = new GameObject().AddComponent<ITM_RipeBanan>();
-            SplitObject = CreateObject("Banana Split", "This yummy treat will increase your stamina for the rest of the floor!", SplitSprite32x, SplitSprite128x, Items.NanaPeel, 75);
+            SplitObject = CreateObject("Banana Split", "Banana Split\nThis yummy treat will increase your stamina for the rest of the floor!", SplitSprite32x, SplitSprite128x, Items.Football, 75, 25);
             SplitObject.item = new GameObject().AddComponent<ITM_BananSplit>();
 
             DontDestroyOnLoad(BananaObject.item);
@@ -183,6 +183,9 @@ namespace BBPBaldnana
             banobj = new WeightedItemObject();
             banobj.selection = RipeObject;
             banobj.weight = 10;
+            banobj = new WeightedItemObject();
+            banobj.selection = SplitObject;
+            banobj.weight = 35;
             NewItems.Add(banobj);
 
             banobj.selection = BananaObject;
@@ -196,15 +199,15 @@ namespace BBPBaldnana
             banobj.weight = 10;
             ShopItems.Add(banobj);
             banobj.selection = Resources.FindObjectsOfTypeAll<ItemObject>().ToList().Find(x => x.itemType == Items.Teleporter);
-            banobj.weight = 1;
+            banobj.weight = 2;
             ShopItems.Add(banobj);
             banobj = new WeightedItemObject();
             banobj.selection = RipeObject;
-            banobj.weight = 20;
+            banobj.weight = 50;
             ShopItems.Add(banobj);
             banobj = new WeightedItemObject();
             banobj.selection = SplitObject;
-            banobj.weight = 25;
+            banobj.weight = 50;
             ShopItems.Add(banobj);
 
 
@@ -212,7 +215,7 @@ namespace BBPBaldnana
         }
 
 
-        public static ItemObject CreateObject(string localizedtext, string desckey, Sprite smallicon, Sprite largeicon, Items type, int price)
+        public static ItemObject CreateObject(string localizedtext, string desckey, Sprite smallicon, Sprite largeicon, Items type, int price, int cost)
         {
             ItemObject obj = ScriptableObject.CreateInstance<ItemObject>();
             obj.nameKey = localizedtext;
@@ -220,7 +223,8 @@ namespace BBPBaldnana
             obj.itemSpriteLarge = largeicon;
             obj.itemType = type;
             obj.descKey = desckey;
-            obj.cost = price;
+            obj.cost = cost;
+            obj.price = price;
 
             return obj;
         }
