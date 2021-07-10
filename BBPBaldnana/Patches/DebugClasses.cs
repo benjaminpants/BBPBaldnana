@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using TMPro;
 using HarmonyLib.Tools;
 
+//only compile the following code if we're compiling a debug build
+#if DEBUG
 namespace BBPBaldnana
 {
     [HarmonyPatch(typeof(ItemManager))]
@@ -34,3 +36,4 @@ namespace BBPBaldnana
         }
     }
 }
+#endif
