@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace BBPBaldnana
 {
-    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "1.0.0.0")]
+    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "1.1.0.0")]
 
     public class BaldiBananaMayham : BaseUnityPlugin
     {
