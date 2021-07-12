@@ -157,11 +157,11 @@ namespace BBPBaldnana
             SplitSprite128x = Sprite.Create((Texture2D)tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
 
-            BananaObject = CreateObject("Banana", "Banana\nA good ol' fashioned Banana!\nDrop it and make people slip the opposite direction they are heading!\nThis can backfire and make them head towards you!\n(This is totally intentional and not a bug)", BananSprite32x, BananSprite128x, Items.NanaPeel, 50,25);
+            BananaObject = CreateObject("Itm_Banana", "Desc_Banana", BananSprite32x, BananSprite128x, Items.NanaPeel, 50,25);
             BananaObject.item = new GameObject().AddComponent<ITM_Banan>();
-            RipeObject = CreateObject("Ripe", "Ripe\nUse this rainbow Banana to spawn a hoard of rainbow colored Bananas to stop characters in their tracks!", RipeSprite32x, RipeSprite128x, Items.FidgetSpinner, 100, 100); //its a really bad idea to use these non-sense values but it could be causing issues
+            RipeObject = CreateObject("Itm_Ripe", "Desc_Ripe", RipeSprite32x, RipeSprite128x, (Items)999, 100, 100); //casting ints to enums because that is completely valid and causes no issues
             RipeObject.item = new GameObject().AddComponent<ITM_RipeBanan>();
-            SplitObject = CreateObject("Banana Split", "Banana Split\nThis yummy treat will increase your max stamina for the rest of the floor!\n Dying resets your max stamina.", SplitSprite32x, SplitSprite128x, Items.Football, 75, 25);
+            SplitObject = CreateObject("Itm_Split", "Desc_Split", SplitSprite32x, SplitSprite128x, (Items)1000, 75, 25);
             SplitObject.item = new GameObject().AddComponent<ITM_BananSplit>();
 
             DontDestroyOnLoad(BananaObject.item);
