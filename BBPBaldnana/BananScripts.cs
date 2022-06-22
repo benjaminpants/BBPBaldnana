@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using HarmonyLib; //god im hoping i got the right version of harmony
 using BepInEx.Configuration;
-using BBPlusNameAPI;
+using MTM101BaldAPI;
 using System.Collections.Generic;
 
 namespace BBPBaldnana

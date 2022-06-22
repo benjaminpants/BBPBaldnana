@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using HarmonyLib; //god im hoping i got the right version of harmony
 using BepInEx.Configuration;
-using BBPlusNameAPI;
+using MTM101BaldAPI.NameMenu;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -133,7 +133,7 @@ namespace BBPBaldnana
         {
             Harmony harmony = new Harmony("mtm101.rulerp.bbplus.bbpbaldnana");
             NameMenuManager.AddPage("bbpbnoptions", "options");
-            NameMenuManager.AddToPage("options", new Name_MenuFolder("tobbpbnoptions", "Banana Mayham", "bbpbnoptions"));
+            NameMenuManager.AddToPage("options", new MenuFolder("tobbpbnoptions", "Banana Mayham", "bbpbnoptions"));
 
             //FIX THIS TEXTURE LOADING CODE JESUS CHRIST
             Texture tex = BaldiBananaMayham.TextureFromBase64(BananImage32x);

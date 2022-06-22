@@ -1,0 +1,11 @@
+{"items":[
+
+{"key":"Itm_Banana","value":"Banana"},
+{"key":"Itm_Ripe","value":"Ripe"},
+{"key":"Itm_Split","value":"Banana Split"},
+{"key":"Desc_Banana","value":"Banana\nA good ol' fashioned Banana!\nDrop it and make people slip the opposite direction they are heading!\nThis can backfire and make them head towards you!\n(This is totally intentional and not a bug)"},
+{"key":"Desc_Ripe","value":"Ripe\nUse this rainbow Banana to spawn a hoard of rainbow colored Bananas to stop characters in their tracks!"},
+{"key":"Desc_Split","value":"Banana Split\nThis yummy treat will increase your max stamina for the rest of the floor!\n Dying resets your max stamina."},
+{"key":"Men_MainDesc","value":"Baldi's Super Schoolhouse has been overrun by Bananas! Can you still escape?"}
+
+]}
