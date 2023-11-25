@@ -76,10 +76,16 @@ namespace BBPBaldnana
 
             ripeId = EnumExtensions.ExtendEnum<Items>("RipeBanana");
             splitId = EnumExtensions.ExtendEnum<Items>("BananaSplit");
-            
+
+            GeneratorManagement.Register(this, GenerationModType.Addend, (string name, int floorid, LevelObject obj) =>
+            {
+                if (obj.posters.Length == 0) return;
+                obj.posters = obj.posters.AddRangeToArray(BaldiBananaMayham.Posters.ToArray()); //no reason not to add the posters
+                obj.MarkAsNeverUnload();
+            });
+
             GeneratorManagement.Register(this, GenerationModType.Override, (string name, int floorid, LevelObject obj) =>
             {
-                obj.posters = obj.posters.AddRangeToArray(BaldiBananaMayham.Posters.ToArray()); //no reason not to add the posters
                 if (name == "C2") return;
                 obj.items = BaldiBananaMayham.NewItems.ToArray();
                 obj.shopItems = BaldiBananaMayham.ShopItems.ToArray();
