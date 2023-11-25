@@ -38,9 +38,8 @@ namespace BBPBaldnana
                 __instance.transform.rotation = Singleton<CoreGameManager>.Instance.GetCamera(pm.playerNumber).transform.rotation;
                 //okay now that we've simulated the base behavior with a few tweaks time to add our custom stuff
                 SpriteRenderer spr = __instance.gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-                spr.sprite = BaldiBananaMayham.BananFloorSprite;
-                spr.transform.localScale *= 2f;
-                spr.transform.position -= new Vector3(0f, 3.2f, 0f);
+                spr.sprite = BaldiBananaMayham.BananaFloor;
+                spr.transform.position -= new Vector3(0f, 3.0f, 0f);
                 return false;
             }
             if (__instance.transform.name == "GB RIPE")
@@ -48,14 +47,13 @@ namespace BBPBaldnana
                 FieldInfo speed = AccessTools.Field(typeof(ITM_BSODA), "speed");
                 speed.SetValue(__instance, 0f);
                 FieldInfo time = AccessTools.Field(typeof(ITM_BSODA), "time");
-                time.SetValue(__instance, 10f); //makes the banana stay for 10 minutes, which is way longer then any BB+ game can reasonibly last, i could set this to 999999 but i'd rather have some form of auto-cleanup
+                time.SetValue(__instance, 10f);
                 FieldInfo enviroment = AccessTools.Field(typeof(ITM_BSODA), "ec");
                 enviroment.SetValue(__instance, Singleton<BaseGameManager>.Instance.Ec);
                 __instance.transform.position = pm.transform.position;
                 //okay now that we've simulated the base behavior with a few tweaks time to add our custom stuff
                 SpriteRenderer spr = __instance.gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-                spr.sprite = BaldiBananaMayham.RipeSpraySprite;
-                spr.transform.localScale *= 2f;
+                spr.sprite = BaldiBananaMayham.RipeSpray;
                 return false;
             }
 
@@ -70,14 +68,30 @@ namespace BBPBaldnana
     {
         static bool Prefix(ITM_BSODA __instance, ref Collider other)
         {
+            if (other == null) return true;
             if (other.tag == "NPC" && other.isTrigger)
             {
                 if (__instance.name == "Banana NPCless")
                 {
+                    Navigator nav = other.GetComponent<Navigator>();
+                    if (nav.Velocity.magnitude <= float.Epsilon)
+                    {
+                        return false;
+                    }
+                    AudioManager audMan = other.GetComponent<AudioManager>();
+                    if (audMan != null)
+                    {
+                        audMan.PlaySingle(BaldiBananaMayham.SlipSound);
+                    }
+                    else
+                    {
+                        BaldiBananaMayham.Log.LogWarning(String.Format("{0} doesn't have AudioManager... strange...", other.gameObject.name));
+                    }
                     FieldInfo speed = AccessTools.Field(typeof(ITM_BSODA), "speed");
                     speed.SetValue(__instance, 40f);
-                    __instance.transform.eulerAngles = Quaternion.FromToRotation(Vector3.forward, other.GetComponent<Navigator>().Velocity.normalized).eulerAngles * -1f; //I HAVE NO IDEA WHAT THIS DOES BUT IT WORKS
-                    __instance.transform.position = new Vector3(other.transform.position.x,__instance.transform.position.y, other.transform.position.z);
+                    __instance.transform.rotation = Quaternion.LookRotation(nav.gameObject.transform.forward, nav.Velocity);
+                    __instance.transform.rotation = Quaternion.Euler(__instance.transform.rotation.eulerAngles + (180f * Vector3.up));
+                    __instance.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
                     __instance.name = "Banana has NPC";
                     FieldInfo time = AccessTools.Field(typeof(ITM_BSODA), "time");
                     time.SetValue(__instance, 15f);
@@ -85,6 +99,19 @@ namespace BBPBaldnana
                 else if (__instance.name == "Banana has NPC")
                 {
                     return false;
+                }
+                else if (__instance.name == "GB RIPE")
+                {
+                    AudioManager audMan = other.GetComponent<AudioManager>();
+                    if (audMan != null)
+                    {
+                        audMan.PlaySingle(BaldiBananaMayham.ShingSound);
+                    }
+                    else
+                    {
+                        BaldiBananaMayham.Log.LogWarning(String.Format("{0} doesn't have AudioManager... strange...", other.gameObject.name));
+                    }
+                    return true;
                 }
             }
             return true;

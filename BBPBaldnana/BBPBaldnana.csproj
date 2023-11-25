@@ -41,8 +41,8 @@
     <Reference Include="MonoMod.Utils">
       <HintPath>..\Dependencies\MonoMod.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="MTM101BMDE">
-      <HintPath>..\Dependencies\MTM101BMDE.dll</HintPath>
+    <Reference Include="MTM101BaldAPI">
+      <HintPath>..\Dependencies\MTM101BaldAPI.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\Dependencies\Rewired_Core.dll</HintPath>
