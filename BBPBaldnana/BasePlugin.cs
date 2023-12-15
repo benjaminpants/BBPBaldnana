@@ -25,6 +25,8 @@ namespace BBPBaldnana
 
         internal static ManualLogSource Log;
 
+        // TODO: consider updating this to use AssetManager?
+
         public static Sprite BananaSmall;
         public static Sprite BananaLarge;
         public static Sprite BananaFloor;
@@ -131,6 +133,8 @@ namespace BBPBaldnana
                 selection = tomPoster,
                 weight = 60
             });
+
+            Log = Logger;
 
             harmony.PatchAll();
         }
