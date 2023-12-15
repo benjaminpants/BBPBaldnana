@@ -12,13 +12,13 @@ using HarmonyLib;
 using BepInEx.Configuration;
 using System.Collections.Generic;
 using System.Linq;
-using MTM101BaldAPI.AssetManager;
 using MTM101BaldAPI;
 using MTM101BaldAPI.Registers;
+using MTM101BaldAPI.AssetTools;
 
 namespace BBPBaldnana
 {
-    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "2.0.0.0")]
+    [BepInPlugin("mtm101.rulerp.bbplus.bbpbaldnana", "BB+ Banana Mayham", "2.1.0.0")]
 
     public class BaldiBananaMayham : BaseUnityPlugin
     {
@@ -59,20 +59,20 @@ namespace BBPBaldnana
             //NameMenuManager.AddToPage("options", new MenuFolder("tobbpbnoptions", "Banana Mayham", "bbpbnoptions"));
 
             //finally fixed this texture loading code :)
-            BananaSmall = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this,"BananaSmall.png"), Vector2.one / 2f, 25f);
-            BananaLarge = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "BananaLarge.png"), Vector2.one / 2f, 50f);
-            BananaFloor = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "BananaFloor.png"), Vector2.one / 2f, 15f);
+            BananaSmall = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this,"BananaSmall.png"), Vector2.one / 2f, 25f);
+            BananaLarge = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "BananaLarge.png"), Vector2.one / 2f, 50f);
+            BananaFloor = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "BananaFloor.png"), Vector2.one / 2f, 15f);
 
-            SlipSound = ObjectCreatorHandlers.CreateSoundObject(AssetManager.AudioClipFromMod(this, "Slip.wav"), "Vfx_Slip", SoundType.Effect, Color.yellow);
-            ShingSound = ObjectCreatorHandlers.CreateSoundObject(AssetManager.AudioClipFromMod(this, "Shing.wav"), "Vfx_Shing", SoundType.Effect, Color.cyan);
+            SlipSound = ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, "Slip.wav"), "Vfx_Slip", SoundType.Effect, Color.yellow);
+            ShingSound = ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, "Shing.wav"), "Vfx_Shing", SoundType.Effect, Color.cyan);
 
-            RipeSmall = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "RipeSmall.png"), Vector2.one / 2f, 25f);
-            RipeLarge = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "RipeLarge.png"), Vector2.one / 2f, 50f);
-            RipeSpray = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "RipeSpray.png"), Vector2.one / 2f, 10f);
+            RipeSmall = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "RipeSmall.png"), Vector2.one / 2f, 25f);
+            RipeLarge = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "RipeLarge.png"), Vector2.one / 2f, 50f);
+            RipeSpray = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "RipeSpray.png"), Vector2.one / 2f, 10f);
 
 
-            SplitSmall = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "SplitSmall.png"), Vector2.one / 2f, 25f);
-            SplitLarge = AssetManager.SpriteFromTexture2D(AssetManager.TextureFromMod(this, "SplitLarge.png"), Vector2.one / 2f, 50f);
+            SplitSmall = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "SplitSmall.png"), Vector2.one / 2f, 25f);
+            SplitLarge = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "SplitLarge.png"), Vector2.one / 2f, 50f);
 
             ripeId = EnumExtensions.ExtendEnum<Items>("RipeBanana");
             splitId = EnumExtensions.ExtendEnum<Items>("BananaSplit");
@@ -96,35 +96,35 @@ namespace BBPBaldnana
 
             Posters.Add(new WeightedPosterObject()
             {
-                selection=ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "BananaHole.png"), null, new PosterTextData[0]),
+                selection=ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "BananaHole.png"), new PosterTextData[0]),
                 weight=80
             });
             Posters.Add(new WeightedPosterObject()
             {
-                selection = ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "DONT_TRUST.png"), null, new PosterTextData[0]),
+                selection = ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "DONT_TRUST.png"), new PosterTextData[0]),
                 weight = 10
             });
             Posters.Add(new WeightedPosterObject()
             {
-                selection = ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "DO_TRUST.png"), null, new PosterTextData[0]),
+                selection = ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "DO_TRUST.png"), new PosterTextData[0]),
                 weight = 30
             });
             Posters.Add(new WeightedPosterObject()
             {
-                selection = ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "YUMMY.png"), null, new PosterTextData[0]),
+                selection = ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "YUMMY.png"), new PosterTextData[0]),
                 weight = 40
             });
             Posters.Add(new WeightedPosterObject()
             {
-                selection = ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "BUY_RIPE.png"), null, new PosterTextData[0]),
+                selection = ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "BUY_RIPE.png"), new PosterTextData[0]),
                 weight = 60
             });
             PosterObject tomPoster = ScriptableObject.CreateInstance<PosterObject>();
             tomPoster.textData = new PosterTextData[0];
             tomPoster.multiPosterArray = new PosterObject[]
             {
-                ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "yipee1.png"),null,new PosterTextData[0]),
-                ObjectCreatorHandlers.CreatePosterObject(AssetManager.TextureFromMod(this, "Posters", "yipee2.png"),null,new PosterTextData[0])
+                ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "yipee1.png"),new PosterTextData[0]),
+                ObjectCreators.CreatePosterObject(AssetLoader.TextureFromMod(this, "Posters", "yipee2.png"),new PosterTextData[0])
             };
             Posters.Add(new WeightedPosterObject()
             {
@@ -142,11 +142,11 @@ namespace BBPBaldnana
     {
         static void Prefix()
         {
-            BaldiBananaMayham.BananaObject = ObjectCreatorHandlers.CreateItemObject("Itm_Banana", "Desc_Banana", BaldiBananaMayham.BananaSmall, BaldiBananaMayham.BananaLarge, Items.NanaPeel, 50, 25);
+            BaldiBananaMayham.BananaObject = ObjectCreators.CreateItemObject("Itm_Banana", "Desc_Banana", BaldiBananaMayham.BananaSmall, BaldiBananaMayham.BananaLarge, Items.NanaPeel, 50, 25);
             BaldiBananaMayham.BananaObject.item = new GameObject().AddComponent<ITM_Banan>();
-            BaldiBananaMayham.RipeObject = ObjectCreatorHandlers.CreateItemObject("Itm_Ripe", "Desc_Ripe", BaldiBananaMayham.RipeSmall, BaldiBananaMayham.RipeLarge, BaldiBananaMayham.ripeId, 100, 50);
+            BaldiBananaMayham.RipeObject = ObjectCreators.CreateItemObject("Itm_Ripe", "Desc_Ripe", BaldiBananaMayham.RipeSmall, BaldiBananaMayham.RipeLarge, BaldiBananaMayham.ripeId, 100, 50);
             BaldiBananaMayham.RipeObject.item = new GameObject().AddComponent<ITM_RipeBanan>();
-            BaldiBananaMayham.SplitObject = ObjectCreatorHandlers.CreateItemObject("Itm_Split", "Desc_Split", BaldiBananaMayham.SplitSmall, BaldiBananaMayham.SplitLarge, BaldiBananaMayham.splitId, 75, 35);
+            BaldiBananaMayham.SplitObject = ObjectCreators.CreateItemObject("Itm_Split", "Desc_Split", BaldiBananaMayham.SplitSmall, BaldiBananaMayham.SplitLarge, BaldiBananaMayham.splitId, 75, 35);
             BaldiBananaMayham.SplitObject.item = new GameObject().AddComponent<ITM_BananSplit>();
 
             GameObject.DontDestroyOnLoad(BaldiBananaMayham.BananaObject.item.gameObject);
